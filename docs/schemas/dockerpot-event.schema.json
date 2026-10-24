@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DockerPot JSONL event",
+  "type": "object",
+  "required": ["ts", "src_ip", "method", "path"],
+  "properties": {
+    "ts": {"type": "string", "format": "date-time"},
+    "src_ip": {"type": "string"},
+    "method": {"type": "string"},
+    "path": {"type": "string", "maxLength": 8192},
+    "query": {"type": "string", "maxLength": 2048},
+    "body": {}
+  },
+  "additionalProperties": false
+}

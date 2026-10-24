@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RedisPot JSONL event",
+  "type": "object",
+  "required": ["ts", "src_ip", "cmd"],
+  "properties": {
+    "ts": {"type": "string", "format": "date-time"},
+    "src_ip": {"type": "string"},
+    "cmd": {"type": "array", "items": {"type": "string", "maxLength": 2000}, "maxItems": 128}
+  },
+  "additionalProperties": false
+}

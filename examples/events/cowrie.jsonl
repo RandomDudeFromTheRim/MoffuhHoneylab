@@ -1,0 +1,3 @@
+{"timestamp":"2026-10-24T11:15:00Z","eventid":"cowrie.session.connect","session":"synthetic-session-001","src_ip":"203.0.113.45","protocol":"ssh"}
+{"timestamp":"2026-10-24T11:15:02Z","eventid":"cowrie.login.failed","session":"synthetic-session-001","src_ip":"203.0.113.45","username":"root","password":"EXAMPLE-NOT-A-REAL-PASSWORD"}
+{"timestamp":"2026-10-24T11:15:04Z","eventid":"cowrie.command.input","session":"synthetic-session-001","src_ip":"203.0.113.45","input":"id; uname -a"}

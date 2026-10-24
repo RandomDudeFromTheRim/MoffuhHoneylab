@@ -1,0 +1,31 @@
+[Unit]
+Description=Optional Mineflayer decoy players for the Minecraft bait server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/opt/honeypot-lab/minecraft/bots
+EnvironmentFile=-/etc/honeypot-lab/honeypot.env
+Environment=MCBAIT_HOST=127.0.0.1 MCBAIT_PORT=25567
+ExecStart=/usr/bin/node bots.js
+DynamicUser=yes
+StateDirectory=mcbots
+Environment=HOME=/var/lib/mcbots
+Restart=on-failure
+RestartSec=30
+MemoryMax=600M
+TasksMax=60
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+LockPersonality=yes
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

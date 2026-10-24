@@ -1,0 +1,41 @@
+# Adapt this customapi list for Homepage or another internal dashboard.
+# Keep the API on loopback/private LAN and protect the dashboard; /feed includes visitor IPs and commands.
+- Honeypot Lab:
+    - SSH/Telnet:
+        widget:
+          type: customapi
+          url: http://127.0.0.1:18082/cowrie
+          refreshInterval: 60000
+          mappings:
+            - { field: sessions, label: Sessions }
+            - { field: ips, label: IPs }
+            - { field: logins, label: Login attempts }
+            - { field: commands, label: Commands }
+            - { field: downloads, label: Transfers }
+    - Minecraft:
+        widget:
+          type: customapi
+          url: http://127.0.0.1:18082/minecraft
+          refreshInterval: 60000
+          mappings:
+            - { field: joins, label: Join attempts }
+            - { field: griefers, label: Griefers observed }
+            - { field: world, label: World generation }
+    - Docker API:
+        widget:
+          type: customapi
+          url: http://127.0.0.1:18082/docker
+          refreshInterval: 60000
+          mappings:
+            - { field: requests, label: Requests }
+            - { field: creates, label: Create attempts }
+            - { field: escapes, label: Bind-mount attempts }
+    - Redis protocol:
+        widget:
+          type: customapi
+          url: http://127.0.0.1:18082/redis
+          refreshInterval: 60000
+          mappings:
+            - { field: commands, label: Commands }
+            - { field: ips, label: Source IPs }
+            - { field: rce, label: RCE attempts }

@@ -1,0 +1,38 @@
+# Cowrie emulates an SSH/Telnet shell. It does not run entered commands as host commands.
+services:
+  cowrie:
+    image: cowrie/cowrie:latest
+    container_name: honeypot-cowrie
+    restart: unless-stopped
+    ports:
+      - "${HONEYPOT_BIND_ADDRESS:-127.0.0.1}:${COWRIE_SSH_HOST_PORT:-2222}:2222"
+      - "${HONEYPOT_BIND_ADDRESS:-127.0.0.1}:${COWRIE_TELNET_HOST_PORT:-2223}:2223"
+    volumes:
+      - "${COWRIE_DATA_DIR:-./var}:/cowrie/cowrie-git/var"
+    environment:
+      COWRIE_HONEYPOT_HOSTNAME: ${COWRIE_HONEYPOT_HOSTNAME:-lab-honeypot}
+      COWRIE_TELNET_ENABLED: "yes"
+      COWRIE_HONEYPOT_DOWNLOAD_LIMIT_SIZE: "52428800"
+      COWRIE_OUTPUT_JSONLOG_ENABLED: "true"
+      COWRIE_OUTPUT_DSHIELD_ENABLED: "${COWRIE_DSHIELD_ENABLED:-false}"
+      COWRIE_OUTPUT_DSHIELD_USERID: "${DSHIELD_USERID:-}"
+      COWRIE_OUTPUT_DSHIELD_AUTH_KEY: "${DSHIELD_AUTH_KEY:-}"
+      COWRIE_OUTPUT_DSHIELD_BATCH_SIZE: "100"
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 100
+    cpus: 1
+    networks: [cowrie]
+    logging:
+      driver: json-file
+      options: { max-size: 10m, max-file: "3" }
+
+networks:
+  cowrie:
+    driver_opts:
+      com.docker.network.bridge.name: br-hp-cowrie
+    ipam:
+      config:
+        - subnet: ${COWRIE_SUBNET:-172.29.90.0/24}

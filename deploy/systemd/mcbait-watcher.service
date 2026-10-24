@@ -1,0 +1,13 @@
+[Unit]
+Description=Optional Minecraft bait world monitor and wipe
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/honeypot-lab/mcbait.env
+EnvironmentFile=-/etc/honeypot-lab/honeypot.env
+ExecStart=/usr/bin/python3 /opt/honeypot-lab/minecraft/mcbait.py check
+TimeoutStartSec=15min
+Nice=10
+# Requires Docker API access. Membership in the docker group is effectively root.

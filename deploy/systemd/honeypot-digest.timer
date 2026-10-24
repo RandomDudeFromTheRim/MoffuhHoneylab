@@ -1,0 +1,9 @@
+[Unit]
+Description=Run the local honeypot report daily
+
+[Timer]
+OnCalendar=*-*-* 09:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cowrie JSON output event",
+  "type": "object",
+  "required": ["timestamp", "eventid"],
+  "properties": {
+    "timestamp": {"type": "string", "format": "date-time"},
+    "eventid": {"type": "string"},
+    "session": {"type": "string"},
+    "src_ip": {"type": "string"},
+    "protocol": {"type": "string"},
+    "username": {"type": "string"},
+    "password": {"type": "string"},
+    "input": {"type": "string"},
+    "url": {"type": "string"},
+    "filename": {"type": "string"},
+    "destfile": {"type": "string"},
+    "shasum": {"type": "string"}
+  },
+  "additionalProperties": true
+}

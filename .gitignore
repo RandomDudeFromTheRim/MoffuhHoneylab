@@ -1,0 +1,40 @@
+# Secrets and operator-specific configuration
+.env
+.env.*
+!.env.example
+**/.env
+**/*.env
+!.env.example
+
+# Runtime state, logs, captures, and generated bait
+*.log
+*.jsonl
+!examples/events/*.jsonl
+var/
+**/var/
+logs/
+state.json
+*.pickle
+*.pcap
+*.pcapng
+captures/
+downloads/
+reports/
+*.sqlite
+*.sqlite3
+*.db
+
+# Language/build artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519

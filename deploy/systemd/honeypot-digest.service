@@ -1,0 +1,9 @@
+[Unit]
+Description=Build a local honeypot activity report
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/honeypot-lab/honeypot.env
+ExecStart=/usr/bin/python3 /opt/honeypot-lab/cowrie/digest.py --no-rate
+TimeoutStartSec=10min
+Nice=10

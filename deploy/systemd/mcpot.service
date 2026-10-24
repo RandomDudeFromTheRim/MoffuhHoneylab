@@ -1,0 +1,31 @@
+[Unit]
+Description=Minecraft handshake logger and optional bait-server proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/honeypot-lab/minecraft/mcpot.py
+Environment=MCPOT_BIND=0.0.0.0 MCPOT_PORT=25566 MCPOT_UPSTREAM=127.0.0.1:25567
+DynamicUser=yes
+StateDirectory=mcpot
+Restart=on-failure
+RestartSec=5
+MemoryMax=200M
+TasksMax=132
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+CapabilityBoundingSet=
+SystemCallFilter=@system-service
+
+[Install]
+WantedBy=multi-user.target

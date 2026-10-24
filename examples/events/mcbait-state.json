@@ -1,0 +1,16 @@
+{
+  "since": 1792841700.0,
+  "checked": 1792842600.0,
+  "wipes": 1,
+  "stats": {
+    "players": 1,
+    "griefers": 1,
+    "sessions": 2,
+    "player_blocks": 125,
+    "explosion_blocks": 0,
+    "tnt_placed": 0,
+    "lava_placed": 0,
+    "fire_placed": 0,
+    "stolen": 0
+  }
+}

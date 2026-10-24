@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MCPot JSONL event",
+  "type": "object",
+  "required": ["ip", "ts", "type"],
+  "properties": {
+    "ip": {"type": "string"},
+    "ts": {"type": "number"},
+    "type": {"type": "string", "pattern": "^(ping|legacy_ping|join|join_start|junk|malformed|dropped|state[0-9]+)$"},
+    "proto": {"type": "integer", "minimum": 0},
+    "host": {"type": "string", "maxLength": 100},
+    "port": {"type": "integer", "minimum": 0, "maximum": 65535},
+    "name": {"type": "string", "maxLength": 32},
+    "uuid": {"type": "string"},
+    "relayed": {"type": "boolean"},
+    "secs": {"type": "number", "minimum": 0},
+    "err": {"type": "string", "maxLength": 60}
+  },
+  "additionalProperties": true
+}

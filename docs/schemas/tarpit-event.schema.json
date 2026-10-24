@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SSH tarpit JSONL event",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["ts", "src_ip", "event", "id"],
+      "properties": {
+        "ts": {"type": "string", "format": "date-time"},
+        "src_ip": {"type": "string"},
+        "event": {"const": "connect"},
+        "id": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["ts", "src_ip", "event", "id", "held_s", "lines"],
+      "properties": {
+        "ts": {"type": "string", "format": "date-time"},
+        "src_ip": {"type": "string"},
+        "event": {"const": "close"},
+        "id": {"type": "string"},
+        "held_s": {"type": "number", "minimum": 0},
+        "lines": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    }
+  ]
+}

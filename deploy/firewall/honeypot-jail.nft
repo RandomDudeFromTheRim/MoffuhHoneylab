@@ -1,0 +1,31 @@
+# Example container jail. Review the existing firewall and local routes before loading.
+# Cowrie and the Paper bait may fetch only public Internet destinations; this blocks local/special ranges.
+# DNS to the host bridge gateway is allowed for Docker's resolver. Do not expose RCON or Paper to the WAN.
+table inet honeypot_jail {
+  set non_global_v4 {
+    type ipv4_addr
+    flags interval
+    elements = {
+      0.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8,
+      169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24,
+      192.168.0.0/16, 198.18.0.0/15, 198.51.100.0/24,
+      203.0.113.0/24, 224.0.0.0/4, 240.0.0.0/4
+    }
+  }
+  set non_global_v6 {
+    type ipv6_addr
+    flags interval
+    elements = { ::/128, ::1/128, ::ffff:0:0/96, 64:ff9b::/96,
+                 100::/64, 2001:db8::/32, fc00::/7, fe80::/10, ff00::/8 }
+  }
+  chain jail_forward {
+    type filter hook forward priority filter - 10; policy accept;
+    iifname { "br-hp-cowrie", "br-hp-mcbait" } ip daddr @non_global_v4 counter drop
+    iifname { "br-hp-cowrie", "br-hp-mcbait" } ip6 daddr @non_global_v6 counter drop
+  }
+  chain jail_input {
+    type filter hook input priority filter - 10; policy accept;
+    iifname { "br-hp-cowrie", "br-hp-mcbait" } ct state new meta l4proto { tcp, udp } th dport 53 accept
+    iifname { "br-hp-cowrie", "br-hp-mcbait" } ct state new counter drop
+  }
+}

@@ -1,0 +1,45 @@
+# Real, disposable Paper server. Only publish local ports; mcpot is the Internet-facing front door.
+services:
+  mcbait:
+    image: itzg/minecraft-server:java21
+    container_name: honeypot-mcbait
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:25567:25565"
+      - "127.0.0.1:25575:25575"
+    environment:
+      EULA: "${MC_EULA_ACCEPTED:?Set MC_EULA_ACCEPTED=TRUE only after accepting the Minecraft EULA}"
+      TYPE: CUSTOM
+      CUSTOM_SERVER: /data/paper.jar
+      VERSION: "1.21.4"
+      MEMORY: 1200M
+      ONLINE_MODE: "FALSE"
+      ENFORCE_SECURE_PROFILE: "FALSE"
+      MOTD: "Example SMP | disposable honeypot world"
+      MAX_PLAYERS: 12
+      VIEW_DISTANCE: 6
+      SIMULATION_DISTANCE: 4
+      DIFFICULTY: peaceful
+      SPAWN_PROTECTION: 0
+      ALLOW_NETHER: "FALSE"
+      ENABLE_RCON: "TRUE"
+      RCON_PASSWORD: "${RCON_PASSWORD:?Set a unique RCON_PASSWORD}"
+      UID: 1000
+      GID: 1000
+      TZ: UTC
+    volumes:
+      - "${MCBAIT_DATA_DIR:?Set MCBAIT_DATA_DIR to a dedicated disposable directory}:/data"
+    cpus: 2
+    pids_limit: 300
+    networks: [mcbait]
+    logging:
+      driver: json-file
+      options: { max-size: 10m, max-file: "3" }
+
+networks:
+  mcbait:
+    driver_opts:
+      com.docker.network.bridge.name: br-hp-mcbait
+    ipam:
+      config:
+        - subnet: ${MCBAIT_SUBNET:-172.29.91.0/24}

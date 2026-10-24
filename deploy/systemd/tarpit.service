@@ -1,0 +1,35 @@
+[Unit]
+Description=SSH pre-auth tarpit
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/honeypot-lab/tarpit/tarpit.py
+Restart=on-failure
+RestartSec=5
+DynamicUser=yes
+StateDirectory=tarpit
+Environment=TARPIT_BIND=0.0.0.0 TARPIT_PORT=2200 TARPIT_MAX=256 TARPIT_DELAY=10 TARPIT_LOG=/var/lib/tarpit/events.jsonl TARPIT_STATE=/var/lib/tarpit/state.json
+LimitNOFILE=1024
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+LockPersonality=yes
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

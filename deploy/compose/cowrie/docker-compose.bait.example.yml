@@ -1,0 +1,6 @@
+# Optional override after running cowrie/build_bait.py inside the Cowrie container.
+services:
+  cowrie:
+    environment:
+      COWRIE_SHELL_FILESYSTEM: /cowrie/cowrie-git/var/custom/fs.pickle
+      COWRIE_SHELL_PROCESSES: /cowrie/cowrie-git/var/custom/cmdoutput.json

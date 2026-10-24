@@ -1,0 +1,14 @@
+[Unit]
+Description=Apply the honeypot container network jail
+Before=docker.service
+After=network-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStartPre=-/usr/sbin/nft delete table inet honeypot_jail
+ExecStart=/usr/sbin/nft -f /opt/honeypot-lab/deploy/firewall/honeypot-jail.nft
+ExecStop=/usr/sbin/nft delete table inet honeypot_jail
+
+[Install]
+WantedBy=multi-user.target

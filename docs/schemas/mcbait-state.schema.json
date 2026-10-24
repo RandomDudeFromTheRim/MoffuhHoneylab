@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "mcbait watcher state",
+  "type": "object",
+  "required": ["wipes"],
+  "properties": {
+    "since": {"type": "number"},
+    "checked": {"type": "number"},
+    "last_wipe": {"type": "number"},
+    "wipes": {"type": "integer", "minimum": 0},
+    "stats": {
+      "type": "object",
+      "properties": {
+        "players": {"type": "integer", "minimum": 0},
+        "griefers": {"type": "integer", "minimum": 0},
+        "sessions": {"type": "integer", "minimum": 0},
+        "player_blocks": {"type": "integer", "minimum": 0},
+        "explosion_blocks": {"type": "integer", "minimum": 0},
+        "tnt_placed": {"type": "integer", "minimum": 0},
+        "lava_placed": {"type": "integer", "minimum": 0},
+        "fire_placed": {"type": "integer", "minimum": 0},
+        "stolen": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

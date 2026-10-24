@@ -1,0 +1,24 @@
+[Unit]
+Description=Private read-only honeypot dashboard API
+
+[Service]
+EnvironmentFile=-/etc/honeypot-lab/honeypot.env
+Environment=HONEYSTATS_BIND=127.0.0.1 HONEYSTATS_PORT=18082
+ExecStart=/usr/bin/python3 /opt/honeypot-lab/cowrie/honeystats.py
+Restart=on-failure
+RestartSec=10
+Nice=10
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+LockPersonality=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,2 @@
+{"ip":"198.51.100.62","type":"ping","proto":767,"host":"play.example.invalid","port":25565,"ts":1792841700.0}
+{"ip":"198.51.100.62","type":"join_start","proto":767,"host":"play.example.invalid","port":25565,"name":"SampleVisitor","uuid":"00000000-0000-4000-8000-000000000001","ts":1792841710.0}

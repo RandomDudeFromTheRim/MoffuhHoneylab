@@ -1,0 +1,35 @@
+[Unit]
+Description=Docker Engine API deception service (no Docker socket)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/honeypot-lab/dockerpot/dockerpot.py
+Restart=on-failure
+RestartSec=5
+DynamicUser=yes
+StateDirectory=dockerpot
+Environment=DOCKERPOT_BIND=0.0.0.0 DOCKERPOT_PORT=2375 DOCKERPOT_LOG=/var/lib/dockerpot/events.jsonl
+RestrictAddressFamilies=AF_INET AF_INET6
+InaccessiblePaths=-/run/docker.sock -/var/run/docker.sock
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictNamespaces=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+LockPersonality=yes
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target
